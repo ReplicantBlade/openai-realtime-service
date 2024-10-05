@@ -1,0 +1,29 @@
+// src/index.js
+import express from "express";
+import http from "http";
+import dotenv from "dotenv";
+import figlet from "figlet";
+import {OpenAiService} from "./OpenAiService.js";
+import {setupSocketIO} from "./SocketIO.js";
+
+dotenv.config();
+
+const app = express();
+const server = http.createServer(app);
+const PORT = process.env.APP_PORT;
+
+console.log(figlet.textSync('MCI Open AI Gateway'));
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.send('Welcome');
+});
+
+const openAiService = new OpenAiService(process.env.OPENAI_API_KEY);
+setupSocketIO(server, openAiService);
+
+server.listen(PORT, async () => {
+    await openAiService.initializeClient();
+    console.log(`Server is running on http://localhost:${PORT}`);
+});

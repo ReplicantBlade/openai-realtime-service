@@ -24,9 +24,11 @@ export class OpenAiService {
         try {
             this.client.sendUserMessageContent([{type: 'input_audio', audio}]);
 
-            this.client.on('conversation.updated', async (event) => {
-                const items = this.client.conversation.getItems();
-                callback({response: items});
+            this.client.on('conversation.item.completed', async ({item}) => {
+                if (item.type === 'message') {
+                    const items = this.client.conversation.getItems();
+                    callback({response: items});
+                }
             });
         } catch (error) {
             console.error('Error sending voice message:', error);

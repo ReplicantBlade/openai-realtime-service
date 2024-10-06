@@ -36,8 +36,7 @@ export class OpenAiService {
 
                         if (fs.existsSync(path.join('/mnt/public_files/files', fileName)) || item.role !== "assistant") continue;
 
-                        const base64Audio = int16ArrayToBase64(item.formatted.audio);
-                        const audioFilePath = await saveAudioToFile(base64Audio, fileName);
+                        const audioFilePath = await saveAudioToFile(item.formatted.audio, fileName);
                         item.formatted["audioDownloadLink"] = `${process.env.SERVER_ADDR}/${path.basename(audioFilePath)}`;
 
                         modifiedItems.push(item);
@@ -52,15 +51,10 @@ export class OpenAiService {
             console.error('Error sending voice message:', error);
         }
 
-        function int16ArrayToBase64(int16Array) {
-            const buffer = Buffer.from(int16Array.buffer);
-            return buffer.toString('base64');
-        }
+        async function saveAudioToFile(int16Array, fileName) {
+            const filePath = path.join('/mnt/public_files/files', fileName);
 
-        async function saveAudioToFile(base64Audio, fileName) {
-            const filePath = path.join('/mnt/public_files/files', fileName); // Change the directory
-
-            const audioBuffer = Buffer.from(base64Audio, 'base64');
+            const audioBuffer = int16Array.buffer;
             await fs.promises.writeFile(filePath, audioBuffer);
 
             return filePath;

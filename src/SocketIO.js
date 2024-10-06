@@ -45,7 +45,7 @@ export function setupSocketIO(server, openAiService) {
 
             const audioData = item.formatted.audio;
 
-            const chunkSize = 512;
+            const chunkSize = 256;
             let responseOrder = 1;
             for (let i = 0; i < audioData.length; i += chunkSize) {
                 const chunk = audioData.slice(i, i + chunkSize);

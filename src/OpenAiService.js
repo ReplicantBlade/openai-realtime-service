@@ -1,6 +1,10 @@
 // src/services/openAiService.js
 import {RealtimeClient} from '@openai/realtime-api-beta';
 
+const fs = require('fs');
+const path = require('path');
+const {v4: uuidv4} = require('uuid');
+
 export class OpenAiService {
     constructor(apiKey) {
         this.client = new RealtimeClient({apiKey});
@@ -30,10 +34,14 @@ export class OpenAiService {
                     const modifiedItems = [];
 
                     for (const item of items) {
-                        item.formatted["originalAudio"] = int16ArrayToBase64(item.formatted.audio);
+                        const base64Audio = int16ArrayToBase64(item.formatted.audio);
+                        const audioFilePath = await saveAudioToFile(base64Audio);
+                        item.formatted["audioDownloadLink"] = `${process.env.SERVER_ADDR}/${path.basename(audioFilePath)}`;
+
+                        modifiedItems.push(item);
                     }
 
-                    callback(items);
+                    callback(modifiedItems);
                 }
             });
         } catch (error) {
@@ -41,13 +49,19 @@ export class OpenAiService {
         }
 
         function int16ArrayToBase64(int16Array) {
-            // Convert Int16Array to Buffer
             const buffer = Buffer.from(int16Array.buffer);
-
-            // Convert Buffer to Base64 string
             return buffer.toString('base64');
         }
 
+        async function saveAudioToFile(base64Audio) {
+            const fileName = `${uuidv4()}.wav`;
+            const filePath = path.join('/mnt/public_files/files', fileName); // Change the directory
+
+            const audioBuffer = Buffer.from(base64Audio, 'base64');
+            await fs.promises.writeFile(filePath, audioBuffer);
+
+            return filePath;
+        }
     }
 
 }

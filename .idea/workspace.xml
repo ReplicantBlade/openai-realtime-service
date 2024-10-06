@@ -4,58 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f976ecd8-a0d8-47ad-acf1-c1dd8a8d77ce" name="Changes" comment="" />
+    <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recording.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenAiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenAiService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocketIO.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="TypeScript File" />
-        <option value="JavaScript File" />
-      </list>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/@openai/realtime-api-beta/dist/lib/client.d.ts" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
   "associatedIndex": 8
 }]]></component>
-  <component name="ProjectId" id="2n2BWlr5LJXi7xF72mgg0TpPmCS" />
+  <component name="ProjectId" id="2n4W9JD6CdpRtoQVxSzjRGTGwom" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Node.js.SocketIO.js.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "G:/Unity-Projects/MCI/openai-realtime-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
     "npm.start.executor": "Debug",
     "settings.editor.selected.configurable": "ssh.settings",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.start">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -65,26 +59,16 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.build" />
-      <item itemvalue="npm.start" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.start" />
-        <item itemvalue="npm.build" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f976ecd8-a0d8-47ad-acf1-c1dd8a8d77ce" name="Changes" comment="" />
-      <created>1728161323806</created>
+      <changelist id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="" />
+      <created>1728232676152</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1728161323806</updated>
-      <workItem from="1728161325064" duration="6113000" />
+      <updated>1728232676152</updated>
+      <workItem from="1728232678251" duration="13971000" />
     </task>
     <servers />
   </component>

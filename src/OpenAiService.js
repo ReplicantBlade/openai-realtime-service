@@ -27,11 +27,27 @@ export class OpenAiService {
             this.client.on('conversation.item.completed', async ({item}) => {
                 if (item.type === 'message') {
                     const items = this.client.conversation.getItems();
-                    callback({response: items});
+                    const modifiedItems = [];
+
+                    for (const item of items) {
+                        item.formatted["originalAudio"] = int16ArrayToBase64(item.formatted.audio);
+                    }
+
+                    callback(items);
                 }
             });
         } catch (error) {
             console.error('Error sending voice message:', error);
         }
+
+        function int16ArrayToBase64(int16Array) {
+            // Convert Int16Array to Buffer
+            const buffer = Buffer.from(int16Array.buffer);
+
+            // Convert Buffer to Base64 string
+            return buffer.toString('base64');
+        }
+
     }
+
 }

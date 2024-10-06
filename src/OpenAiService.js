@@ -1,9 +1,8 @@
 // src/services/openAiService.js
 import {RealtimeClient} from '@openai/realtime-api-beta';
-
-const fs = require('fs');
-const path = require('path');
-const {v4: uuidv4} = require('uuid');
+import fs from "fs";
+import path from "path";
+import {v4 as uuidv4} from "uuid";
 
 export class OpenAiService {
     constructor(apiKey) {

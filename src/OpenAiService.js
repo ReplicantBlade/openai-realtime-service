@@ -22,6 +22,8 @@ export class OpenAiService {
         }
     }
 
+    ids = new Set();
+
     async sendVoiceMessage(audio, callback) {
         try {
             this.client.sendUserMessageContent([{type: 'input_audio', audio}]);
@@ -34,11 +36,14 @@ export class OpenAiService {
                     for (const item of items) {
                         const fileName = `${item.id}.wav`;
 
-                        if (fs.existsSync(path.join('/mnt/public_files/files', fileName)) || item.role !== "assistant") continue;
+                        if (this.ids.has(fileName) || item.role !== "assistant") continue;
 
                         const base64Audio = int16ArrayToBase64(item.formatted.audio);
-                        const audioFilePath = await saveAudioToFile(base64Audio, fileName);
+
+                        // fs.existsSync(path.join('/mnt/public_files/files', fileName))
+                        //const audioFilePath = await saveAudioToFile(base64Audio, fileName);
                         //item.formatted["audioDownloadLink"] = `${process.env.SERVER_ADDR}/${path.basename(audioFilePath)}`;
+                        this.ids.add(fileName);
                         item.formatted["audioBase64"] = base64Audio;
 
                         modifiedItems.push(item);

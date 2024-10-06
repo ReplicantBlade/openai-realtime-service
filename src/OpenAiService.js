@@ -2,7 +2,6 @@
 import {RealtimeClient} from '@openai/realtime-api-beta';
 import fs from "fs";
 import path from "path";
-import {v4 as uuidv4} from "uuid";
 
 export class OpenAiService {
     constructor(apiKey) {
@@ -33,8 +32,12 @@ export class OpenAiService {
                     const modifiedItems = [];
 
                     for (const item of items) {
+                        const fileName = `${item.id}.wav`;
+
+                        if (fs.existsSync(path.join('/mnt/public_files/files', fileName)) || item.role !== "assistant") continue;
+
                         const base64Audio = int16ArrayToBase64(item.formatted.audio);
-                        const audioFilePath = await saveAudioToFile(base64Audio);
+                        const audioFilePath = await saveAudioToFile(base64Audio, fileName);
                         item.formatted["audioDownloadLink"] = `${process.env.SERVER_ADDR}/${path.basename(audioFilePath)}`;
 
                         modifiedItems.push(item);
@@ -52,8 +55,7 @@ export class OpenAiService {
             return buffer.toString('base64');
         }
 
-        async function saveAudioToFile(base64Audio) {
-            const fileName = `${uuidv4()}.wav`;
+        async function saveAudioToFile(base64Audio, fileName) {
             const filePath = path.join('/mnt/public_files/files', fileName); // Change the directory
 
             const audioBuffer = Buffer.from(base64Audio, 'base64');

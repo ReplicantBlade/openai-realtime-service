@@ -1,9 +1,13 @@
 import * as socketIO from 'socket.io';
-import path from "path";
-import {promises as fs} from "fs";
 
 export function setupSocketIO(server, openAiService) {
-    const io = new socketIO.Server(server);
+    const io = new socketIO.Server(server, {
+        allowUpgrades: true,
+        transports: ["websocket", "polling"],
+        pingInterval: 25000,
+        pingTimeout: 60000,
+        maxHttpBufferSize: 1e7
+    });
 
     io.on('connection',  async (socket) => {
         console.log('A user connected:', socket.id);
@@ -12,6 +16,10 @@ export function setupSocketIO(server, openAiService) {
             await openAiService.sendVoiceMessage(audio, async (response) => {
                 await socket.emitWithAck("VoiceResponse", response);
             });
+        });
+
+        socket.on('disconnect', async (socket) =>{
+            console.error('A user disconneced:', socket);
         });
     });
 

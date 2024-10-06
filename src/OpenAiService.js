@@ -43,6 +43,8 @@ export class OpenAiService {
                         modifiedItems.push(item);
                     }
 
+                    if (modifiedItems.length === 0) return;
+
                     callback(modifiedItems);
                 }
             });

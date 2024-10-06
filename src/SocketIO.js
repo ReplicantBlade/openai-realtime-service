@@ -4,6 +4,8 @@ import path from "path";
 
 export function setupSocketIO(server, openAiService) {
 
+    const publishedIds = new Set();
+
     const io = new socketIO.Server(server, {
         allowUpgrades: true,
         transports: ["websocket", "polling"],
@@ -33,7 +35,7 @@ export function setupSocketIO(server, openAiService) {
 
         openAiService.getClient().on('conversation.item.completed', async ({item}) => {
 
-            if (item.role !== "assistant") return;
+            if (item.role !== "assistant" || publishedIds.has(item.id)) return;
 
             // await socket.emitWithAck("VoiceResponse", {
             //     id: item.id,
@@ -42,6 +44,8 @@ export function setupSocketIO(server, openAiService) {
             //     text: item.formatted.text,
             //     transcript: item.formatted.transcript,
             // });
+
+            publishedIds.add(item.id);
 
             const audioData = item.formatted.audio;
 

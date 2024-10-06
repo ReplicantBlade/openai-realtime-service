@@ -14,6 +14,8 @@ export function setupSocketIO(server, openAiService) {
 
     io.on('connection', async (socket) => {
 
+        console.log("new client connected");
+
         socket.on('StreamVoiceChunk', async (data) => {
 
             const audioData = new Int16Array(data.buffer, data.byteOffset, data.byteLength / Int16Array.BYTES_PER_ELEMENT);
@@ -22,6 +24,8 @@ export function setupSocketIO(server, openAiService) {
         });
 
         socket.on('StreamVoiceEnd', async () => {
+
+            console.log("StreamVoiceEnd");
 
             openAiService.getClient().createResponse();
 
@@ -58,6 +62,8 @@ export function setupSocketIO(server, openAiService) {
                 text: item.formatted.text,
                 transcript: item.formatted.transcript,
             });
+
+            console.log("AIResponseComplete");
 
         });
 

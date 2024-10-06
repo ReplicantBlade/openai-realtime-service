@@ -10,10 +10,9 @@ export function setupSocketIO(server, openAiService) {
     });
 
     io.on('connection',  async (socket) => {
-        console.log('A user connected:', socket.id);
-
         socket.on('VoiceMessage', async (audio) => {
             await openAiService.sendVoiceMessage(audio, async (response) => {
+                console.log("Sending response")
                 await socket.emitWithAck("VoiceResponse", response);
             });
         });

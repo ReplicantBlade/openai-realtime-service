@@ -54,7 +54,7 @@ export class OpenAiService {
         async function saveAudioToFile(int16Array, fileName) {
             const filePath = path.join('/mnt/public_files/files', fileName);
 
-            const audioBuffer = int16Array.buffer;
+            const audioBuffer = Buffer.from(int16Array.buffer);
             await fs.promises.writeFile(filePath, audioBuffer);
 
             return filePath;

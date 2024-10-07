@@ -16,9 +16,9 @@ export function setupSocketIO(server, openAiService) {
 
     io.on('connection', async (socket) => {
 
-        socket.on('Interrupt', openAiService.getClient(instruction).cancelResponse());
+        socket.on('Interrupt', ({data, instructionId}) => openAiService.getClient(instructionId).cancelResponse());
 
-        socket.on('StreamVoiceChunk', async ({data, instruction}) => {
+        socket.on('StreamVoiceChunk', async ({data, instructionId}) => {
 
             let audioData;
             if (data.byteOffset % 2 === 0) {
@@ -32,15 +32,15 @@ export function setupSocketIO(server, openAiService) {
                 audioData = new Int16Array(alignedBuffer);
             }
 
-            openAiService.getClient(instruction).appendInputAudio(audioData);
+            openAiService.getClient(instructionId).appendInputAudio(audioData);
 
         });
 
-        socket.on('StreamVoiceEnd', async ({instruction}) => {
+        socket.on('StreamVoiceEnd', async ({instructionId}) => {
 
-            openAiService.getClient(instruction).createResponse();
+            openAiService.getClient(instructionId).createResponse();
 
-            openAiService.getClient(instruction).on('conversation.updated', async ({item}) => {
+            openAiService.getClient(instructionId).on('conversation.updated', async ({item}) => {
 
                 const audioData = item.formatted.audio;
 

@@ -4,7 +4,7 @@ import path from "path";
 
 export function setupSocketIO(server, openAiService) {
 
-    const publishedIds = new Set();
+    const lastAudioOffset = {};
 
     const io = new socketIO.Server(server, {
         allowUpgrades: true,
@@ -27,48 +27,43 @@ export function setupSocketIO(server, openAiService) {
 
         socket.on('StreamVoiceEnd', async ({instruction}) => {
 
-            console.log("StreamVoiceEnd");
-
             openAiService.getClient(instruction).createResponse();
 
-            openAiService.getClient(instruction).on('response.audio.delta', async (data) => {
-                console.log("response.audio.delta", data);
+            openAiService.getClient(instruction).on('conversation.updated', async ({item}) => {
+
+                const audioData = item.formatted.audio;
+
+                if (item.role !== "assistant" || item.formatted.audio.length === 0) return;
+
+                const offset = lastAudioOffset[item.id] ? Number.parseInt(lastAudioOffset[item.id]) : 1;
+
+                const chunkedAudioData = audioData.slice(offset - 1, audioData.length);
+
+                socket.emit('AIResponseAudioChunk', {
+                    id: item.id,
+                    order: 1,
+                    audio: JSON.stringify(chunkedAudioData),
+                });
+
+                lastAudioOffset[item.id] = audioData.length;
+
+                if (item.status === "completed")
+                {
+                    await socket.emitWithAck("AIResponseComplete", {
+                        id: item.id,
+                        role: item.role,
+                        text: item.formatted.text,
+                        transcript: item.formatted.transcript,
+                        //audio: JSON.stringify(audioData),
+                    });
+
+                    lastAudioOffset[item.id] = undefined;
+
+                    console.log("AIResponseComplete");
+                }
             });
 
-            openAiService.getClient(instruction).on('response.audio.done', async (data) => {
-                console.log("response.audio.done", data);
-            });
-
-            // openAiService.getClient(instruction).on('conversation.item.completed', async ({item}) => {
-            //
-            //     if (item.role !== "assistant" || publishedIds.has(item.id)) return;
-            //
-            //     publishedIds.add(item.id);
-            //
-            //     const audioData = item.formatted.audio;
-            //
-            //     const chunkSize = 8046;
-            //     let responseOrder = 1;
-            //     for (let i = 0; i < audioData.length; i += chunkSize) {
-            //         const chunk = audioData.slice(i, i + chunkSize);
-            //         await socket.emitWithAck('AIResponseAudioChunk', {
-            //             id: item.id,
-            //             order: responseOrder++,
-            //             audio: JSON.stringify(chunk),
-            //         });
-            //     }
-            //
-            //     await socket.emitWithAck("AIResponseComplete", {
-            //         id: item.id,
-            //         role: item.role,
-            //         text: item.formatted.text,
-            //         transcript: item.formatted.transcript,
-            //     });
-            //
-            //     console.log("AIResponseComplete");
-            //
-            // });
-
+            console.log("StreamVoiceEnd");
         });
 
         socket.on('disconnect', async () => {

@@ -54,11 +54,11 @@ export function setupSocketIO(server, openAiService) {
                     id: item.id,
                     order: 1,
                     audio: JSON.stringify(chunkedAudioData),
-                }, () => {
+                }, async () => {
 
                     if (item.status !== "completed") return;
 
-                    socket.emit("AIResponseComplete", {
+                    await socket.emitWithAck("AIResponseComplete", {
                         id: item.id,
                         role: item.role,
                         text: item.formatted.text,
@@ -78,8 +78,8 @@ export function setupSocketIO(server, openAiService) {
             console.log("StreamVoiceEnd");
         });
 
-        socket.on('disconnect', async () => {
-            console.error('A user disconnected');
+        socket.on('disconnect', async (e) => {
+            console.error('A user disconnected', e);
         });
 
         console.log("new client connected");

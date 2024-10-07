@@ -37,7 +37,7 @@ export class OpenAiService {
         }
     }
 
-    getClient(instruction): RealtimeClient {
+    getClient(instruction) {
 
         if (!this.clients[instruction])
             console.error("instruction not found")

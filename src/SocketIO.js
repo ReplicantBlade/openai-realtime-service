@@ -54,24 +54,25 @@ export function setupSocketIO(server, openAiService) {
                     id: item.id,
                     order: 1,
                     audio: JSON.stringify(chunkedAudioData),
-                });
+                }, () => {
 
-                lastAudioOffset[item.id] = audioData.length;
+                    if (item.status === "completed") return;
 
-                if (item.status === "completed")
-                {
-                    await socket.emitWithAck("AIResponseComplete", {
+                    socket.emit("AIResponseComplete", {
                         id: item.id,
                         role: item.role,
                         text: item.formatted.text,
                         transcript: item.formatted.transcript,
-                        //audio: JSON.stringify(audioData),
                     });
 
                     lastAudioOffset[item.id] = undefined;
 
                     console.log("AIResponseComplete");
-                }
+
+                });
+
+                lastAudioOffset[item.id] = audioData.length;
+
             });
 
             console.log("StreamVoiceEnd");

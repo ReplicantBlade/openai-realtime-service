@@ -20,7 +20,18 @@ export function setupSocketIO(server, openAiService) {
 
             openAiService.getClient(instruction).cancelResponse();
 
-            const audioData = new Int16Array(data.buffer, data.byteOffset, data.byteLength / Int16Array.BYTES_PER_ELEMENT);
+            let audioData;
+            if (data.byteOffset % 2 === 0) {
+                // The offset is aligned, create the Int16Array directly
+                audioData = new Int16Array(data.buffer, data.byteOffset, data.byteLength / Int16Array.BYTES_PER_ELEMENT);
+            } else {
+                // Offset is not aligned, copy data into a new ArrayBuffer
+                const alignedBuffer = new ArrayBuffer(data.byteLength);
+                const alignedView = new Uint8Array(alignedBuffer);
+                alignedView.set(new Uint8Array(data.buffer, data.byteOffset, data.byteLength));
+                audioData = new Int16Array(alignedBuffer);
+            }
+
             openAiService.getClient(instruction).appendInputAudio(audioData);
 
         });

@@ -56,7 +56,7 @@ export function setupSocketIO(server, openAiService) {
                     audio: JSON.stringify(chunkedAudioData),
                 }, () => {
 
-                    if (item.status === "completed") return;
+                    if (item.status !== "completed") return;
 
                     socket.emit("AIResponseComplete", {
                         id: item.id,

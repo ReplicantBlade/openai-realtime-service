@@ -8,7 +8,7 @@ export function setupSocketIO(server, openAiService) {
 
     const io = new socketIO.Server(server, {
         allowUpgrades: true,
-        transports: ["websocket", "polling"],
+        transports: ["websocket"],
         pingInterval: 25000,
         pingTimeout: 60000,
         maxHttpBufferSize: 1e7,

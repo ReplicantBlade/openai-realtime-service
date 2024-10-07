@@ -20,10 +20,10 @@ app.get('/', (req, res) => {
     res.send('Welcome');
 });
 
-const openAiService = new OpenAiService(process.env.OPENAI_API_KEY);
+const openAiService = new OpenAiService();
 setupSocketIO(server, openAiService);
 
 server.listen(PORT, async () => {
-    await openAiService.initializeClient();
+    await openAiService.initializeClient(process.env.OPENAI_API_KEY);
     console.log(`Server is running on http://localhost:${PORT}`);
 });

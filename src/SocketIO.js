@@ -11,84 +11,73 @@ export function setupSocketIO(server, openAiService) {
         transports: ["websocket", "polling"],
         pingInterval: 25000,
         pingTimeout: 60000,
-        maxHttpBufferSize: 1e7
+        maxHttpBufferSize: 1e7,
     });
 
     io.on('connection', async (socket) => {
 
-        console.log("new client connected");
+        socket.on('StreamVoiceChunk', async ({data, instruction}) => {
 
-        socket.on('StreamVoiceChunk', async (data) => {
+            openAiService.getClient(instruction).cancelResponse();
 
             const audioData = new Int16Array(data.buffer, data.byteOffset, data.byteLength / Int16Array.BYTES_PER_ELEMENT);
-            openAiService.getClient().appendInputAudio(audioData);
+            openAiService.getClient(instruction).appendInputAudio(audioData);
 
         });
 
-        socket.on('StreamVoiceEnd', async () => {
+        socket.on('StreamVoiceEnd', async ({instruction}) => {
 
             console.log("StreamVoiceEnd");
 
-            openAiService.getClient().createResponse();
+            openAiService.getClient(instruction).createResponse();
 
-        });
-
-        openAiService.getClient().on('conversation.item.completed', async ({item}) => {
-
-            if (item.role !== "assistant" || publishedIds.has(item.id)) return;
-
-            // await socket.emitWithAck("VoiceResponse", {
-            //     id: item.id,
-            //     role: item.role,
-            //     audio: JSON.parse(item.formatted.audio),
-            //     text: item.formatted.text,
-            //     transcript: item.formatted.transcript,
-            // });
-
-            publishedIds.add(item.id);
-
-            const audioData = item.formatted.audio;
-
-            const chunkSize = 256;
-            let responseOrder = 1;
-            for (let i = 0; i < audioData.length; i += chunkSize) {
-                const chunk = audioData.slice(i, i + chunkSize);
-                await socket.emitWithAck('AIResponseAudioChunk', {
-                    id: item.id,
-                    order: responseOrder++,
-                    audio: JSON.stringify(chunk),
-                });
-            }
-
-            await socket.emitWithAck("AIResponseComplete", {
-                id: item.id,
-                role: item.role,
-                text: item.formatted.text,
-                transcript: item.formatted.transcript,
+            openAiService.getClient(instruction).on('response.audio.delta', async (data) => {
+                console.log("response.audio.delta", data);
             });
 
-            console.log("AIResponseComplete");
+            openAiService.getClient(instruction).on('response.audio.done', async (data) => {
+                console.log("response.audio.done", data);
+            });
+
+            // openAiService.getClient(instruction).on('conversation.item.completed', async ({item}) => {
+            //
+            //     if (item.role !== "assistant" || publishedIds.has(item.id)) return;
+            //
+            //     publishedIds.add(item.id);
+            //
+            //     const audioData = item.formatted.audio;
+            //
+            //     const chunkSize = 8046;
+            //     let responseOrder = 1;
+            //     for (let i = 0; i < audioData.length; i += chunkSize) {
+            //         const chunk = audioData.slice(i, i + chunkSize);
+            //         await socket.emitWithAck('AIResponseAudioChunk', {
+            //             id: item.id,
+            //             order: responseOrder++,
+            //             audio: JSON.stringify(chunk),
+            //         });
+            //     }
+            //
+            //     await socket.emitWithAck("AIResponseComplete", {
+            //         id: item.id,
+            //         role: item.role,
+            //         text: item.formatted.text,
+            //         transcript: item.formatted.transcript,
+            //     });
+            //
+            //     console.log("AIResponseComplete");
+            //
+            // });
 
         });
 
-        socket.on('disconnect', async (socket) => {
-            console.error('A user disconnected:', socket);
+        socket.on('disconnect', async () => {
+            console.error('A user disconnected');
         });
+
+        console.log("new client connected");
+
     });
-
-    async function saveAudioToFile(base64Audio, fileName) {
-
-        //fs.existsSync(path.join('/mnt/public_files/files', fileName))
-        //const audioFilePath = await saveAudioToFile(base64Audio, fileName);
-        //item.formatted["audioDownloadLink"] = `${process.env.SERVER_ADDR}/${path.basename(audioFilePath)}`;
-
-        const filePath = path.join('/mnt/public_files/files', fileName);
-
-        const audioBuffer = Buffer.from(base64Audio, 'base64');
-        await fs.promises.writeFile(filePath, audioBuffer);
-
-        return filePath;
-    }
 
     return io;
 }

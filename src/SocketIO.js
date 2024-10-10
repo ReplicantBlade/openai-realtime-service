@@ -26,6 +26,8 @@ export function setupSocketIO(server, openAiService) {
                 socket.removeAllListeners('StreamVoiceEnd');
 
                 if (client !== null) {
+                    client.cancelResponse();
+                    client.clearEventHandlers();
                     client.disconnect();
                     client = null;
                     console.log("Prev client disconnected successfully");

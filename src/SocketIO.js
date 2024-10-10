@@ -25,7 +25,7 @@ export function setupSocketIO(server, openAiService) {
                 socket.removeAllListeners('StreamVoiceChunk');
                 socket.removeAllListeners('StreamVoiceEnd');
 
-                if (client !== null){
+                if (client !== null) {
                     client.disconnect();
                     client = null;
                     console.log("Prev client disconnected successfully");
@@ -64,7 +64,7 @@ export function setupSocketIO(server, openAiService) {
                 socket.on('StreamVoiceEnd', () => {
                     client.createResponse();
 
-                    client.on('conversation.updated', ({item}) => {
+                    client.on('conversation.updated', async ({item}) => {
                         const audioData = item.formatted.audio;
 
                         if (item.role !== "assistant" || !audioData.length) return;
@@ -81,7 +81,7 @@ export function setupSocketIO(server, openAiService) {
                         lastAudioOffset.set(item.id, audioData.length);
 
                         if (item.status === "completed") {
-                            socket.emitWithAck('AIResponseComplete', {
+                            await socket.emitWithAck('AIResponseComplete', {
                                 id: item.id,
                                 role: item.role,
                                 text: item.formatted.text,
@@ -89,6 +89,7 @@ export function setupSocketIO(server, openAiService) {
                             });
 
                             lastAudioOffset.delete(item.id);
+                            client.clearEventHandlers();
                             console.log("AIResponseComplete");
                         }
                     });

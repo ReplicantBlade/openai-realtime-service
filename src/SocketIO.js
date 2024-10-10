@@ -40,7 +40,7 @@ export function setupSocketIO(server, openAiService) {
                 }
 
                 await socket.emitWithAck('ConnectNewInstruction', {status: HttpStatusCode.Ok});
-                console.log("connecting to new client OK");
+                console.log("connecting to new client :" + instructionId + "OK");
 
                 socket.on('Interrupt', () => {
                     client.cancelResponse();

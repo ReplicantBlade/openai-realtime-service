@@ -124,6 +124,10 @@ Incident Type and Time to Resolve:**Critical Incidents** (e.g., Network Outages 
 - High Latency and Signal Interference took the longest time to resolve, requiring 4 hours and 3 hours respectively, suggesting that these issues require more detailed investigation and troubleshooting.
 - Quick Response: Some incidents, like Power Outage, Network Outage, and Fiber Cut, were resolved with no delay, reflecting the efficiency of the NOC in handling critical issues.
     `, voice: "shimmer"
+    },
+    "Traffic Analysis": {
+        instructions: "",
+        voice: "shimmer"
     }
 }
 

@@ -105,8 +105,8 @@ export function setupSocketIO(server, openAiService) {
             console.log('A user disconnected', e);
         });
 
-        socket.timeout(1500).emit("ConnectionHasBeenReset");
         console.log("new client connected");
+        await socket.timeout(1500).emitWithAck("ConnectionHasBeenReset");
     });
 
     return io;

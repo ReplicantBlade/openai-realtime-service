@@ -125,7 +125,7 @@ Incident Type and Time to Resolve:**Critical Incidents** (e.g., Network Outages 
 - Quick Response: Some incidents, like Power Outage, Network Outage, and Fiber Cut, were resolved with no delay, reflecting the efficiency of the NOC in handling critical issues.
     `, voice: "shimmer"
     },
-    "Traffic Analysis": {
+    "TrafficAnalysis": {
         instructions: "",
         voice: "shimmer"
     }

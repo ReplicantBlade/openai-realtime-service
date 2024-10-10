@@ -18,7 +18,7 @@ export function setupSocketIO(server, openAiService) {
     io.on('connection', async (socket) => {
 
         let client = null;
-        socket.on('getNewInstruction', async ({instructionId}) => {
+        socket.on('ConnectNewInstruction', async ({instructionId}) => {
             try {
 
                 socket.removeAllListeners('Interrupt');

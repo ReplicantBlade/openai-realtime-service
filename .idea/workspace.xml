@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="add new instructions&#10;change connection behavior" />
+    <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="update instructions id">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenAiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenAiService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocketIO.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +73,7 @@
       <workItem from="1728257423747" duration="354000" />
       <workItem from="1728257878029" duration="1002000" />
       <workItem from="1728326181366" duration="16934000" />
-      <workItem from="1728535522897" duration="2155000" />
+      <workItem from="1728535522897" duration="4464000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -183,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728537667052</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="update instructions id">
+      <option name="closed" value="true" />
+      <created>1728537981007</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728537981007</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +215,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <MESSAGE value="add new instructions&#10;change connection behavior" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new instructions&#10;change connection behavior" />
+    <MESSAGE value="update instructions id" />
+    <option name="LAST_COMMIT_MESSAGE" value="update instructions id" />
   </component>
 </project>

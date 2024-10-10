@@ -76,23 +76,18 @@ export function setupSocketIO(server, openAiService) {
 
                         socket.emit('AIResponseAudioChunk', {
                             id: item.id,
-                            order: 1,
+                            status: item.status,
                             audio: JSON.stringify(chunkedAudioData),
                         });
 
                         lastAudioOffset.set(item.id, audioData.length);
 
                         if (item.status === "completed") {
-                            socket.emit('AIResponseComplete', {
-                                id: item.id,
-                                role: item.role,
-                                text: item.formatted.text,
-                                transcript: item.formatted.transcript,
-                            });
 
                             lastAudioOffset.delete(item.id);
                             client.clearEventHandlers();
                             console.log("AIResponseComplete");
+
                         }
                     });
 

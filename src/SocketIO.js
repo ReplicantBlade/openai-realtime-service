@@ -78,8 +78,6 @@ export function setupSocketIO(server, openAiService) {
                             id: item.id,
                             order: 1,
                             audio: JSON.stringify(chunkedAudioData),
-                        }, () => {
-
                         });
 
                         lastAudioOffset.set(item.id, audioData.length);

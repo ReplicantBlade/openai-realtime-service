@@ -105,6 +105,7 @@ export function setupSocketIO(server, openAiService) {
             console.log('A user disconnected', e);
         });
 
+        socket.emit("ConnectionHasBeenReset");
         console.log("new client connected");
     });
 

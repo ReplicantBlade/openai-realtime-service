@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocketIO.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +78,7 @@
       <workItem from="1728557589072" duration="166000" />
       <workItem from="1728561359259" duration="317000" />
       <workItem from="1728664278912" duration="280000" />
-      <workItem from="1728664806994" duration="714000" />
+      <workItem from="1728664806994" duration="2530000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -319,7 +320,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728664531109</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="update">
+      <option name="closed" value="true" />
+      <created>1728665820842</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1728665820843</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

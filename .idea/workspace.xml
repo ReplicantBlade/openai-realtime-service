@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="update" />
+    <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/src/SocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocketIO.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +80,7 @@
       <workItem from="1728664806994" duration="5845000" />
       <workItem from="1728673305313" duration="237000" />
       <workItem from="1728673679874" duration="46000" />
-      <workItem from="1728677268670" duration="724000" />
+      <workItem from="1728677268670" duration="1098000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -376,7 +378,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728677360106</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="update">
+      <option name="closed" value="true" />
+      <created>1728678317197</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1728678317197</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

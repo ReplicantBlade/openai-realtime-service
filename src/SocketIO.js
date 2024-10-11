@@ -70,7 +70,7 @@ export function setupSocketIO(server, openAiService) {
                     const client = clients.get(socket.id);
                     if (client) {
                         client.createResponse();
-                        let num = 0;
+
                         client.on('conversation.updated', ({item}) => {
                             const audioData = item.formatted.audio;
                             if (item.role !== "assistant" || !audioData.length) return;
@@ -82,12 +82,8 @@ export function setupSocketIO(server, openAiService) {
                                 id: item.id,
                                 status: item.status,
                                 audio: JSON.stringify(chunkedAudioData),
-                                audioOriginal: JSON.stringify(audioData),
                                 transcript: item.formatted.transcript,
                             });
-
-                            ++num;
-                            console.log(num);
 
                             lastAudioOffsets.set(socket.id, audioData.length);
 

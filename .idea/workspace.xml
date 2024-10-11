@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="499435e1-9a3b-41b5-a0f7-8af507eb8228" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenAiService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenAiService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SocketIO.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +79,7 @@
       <workItem from="1728557589072" duration="166000" />
       <workItem from="1728561359259" duration="317000" />
       <workItem from="1728664278912" duration="280000" />
-      <workItem from="1728664806994" duration="4034000" />
+      <workItem from="1728664806994" duration="5474000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -335,7 +337,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728667929380</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="update">
+      <option name="closed" value="true" />
+      <created>1728671364446</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1728671364446</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,5 +367,17 @@
     <MESSAGE value="update instructions id" />
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/SocketIO.js</url>
+          <line>23</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -18,17 +18,6 @@ export function setupSocketIO(server, openAiService) {
 
     io.on('connection', async (socket) => {
 
-        console.log("New client connected with ID:", socket.id);
-        await socket.timeout(2000).emitWithAck("ConnectionHasBeenReset");
-        if (clients.has(socket.id)) {
-            const client = clients.get(socket.id);
-            client.cancelResponse();
-            client.clearEventHandlers();
-            client.disconnect();
-            clients.delete(socket.id);
-            lastAudioOffsets.delete(socket.id);
-        }
-
         socket.on('ConnectNewInstruction', async ({instructionId}) => {
             try {
 
@@ -114,7 +103,21 @@ export function setupSocketIO(server, openAiService) {
             }
         });
 
-        socket.on('disconnect', (e) => console.log(`Client disconnected for socket: ${socket.id}`, e));
+        socket.on('disconnect', (e) => {
+            if (clients.has(socket.id)) {
+                const client = clients.get(socket.id);
+                client.cancelResponse();
+                client.clearEventHandlers();
+                client.disconnect();
+                clients.delete(socket.id);
+                lastAudioOffsets.delete(socket.id);
+            }
+            console.log(`Client disconnected for socket: ${socket.id}`, e);
+        });
+
+        console.log("New client connected with ID:", socket.id);
+
+        socket.timeout(500).emit("ConnectionHasBeenReset");
     });
 
     return io;

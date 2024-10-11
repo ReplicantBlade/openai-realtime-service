@@ -83,6 +83,8 @@ export function setupSocketIO(server, openAiService) {
 
                         lastAudioOffset.set(item.id, audioData.length);
 
+                        console.log("status" + item.status)
+
                         if (item.status === "completed") {
 
                             lastAudioOffset.delete(item.id);

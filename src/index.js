@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.APP_PORT;
 
-console.log(figlet.textSync('MCI Open AI Gateway'));
+console.log(figlet.textSync('MCI GY'));
 
 app.use(express.json());
 
